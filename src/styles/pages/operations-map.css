@@ -1,0 +1,13 @@
+#page-map {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    position: relative;
+}
+
+aside{
+    background-color: #FFF;
+    color: black;
+    width: 40%;
+    padding: 50px;
+}
