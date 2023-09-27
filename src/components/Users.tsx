@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
-import axios from '../api/axios';
+import { useState, useEffect, useRef } from 'react';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface User {
   name: string;
@@ -8,28 +9,35 @@ interface User {
 
 export default function Users() {
   const [users, setUsers] = useState<User[]>([]);
+  const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const effectRun = useRef(false);
 
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
     const getUsers = async () => {
       try {
-        const response = await axios.get('/users', {
+        const response = await axiosPrivate.get('/users', {
           signal: controller.signal
         });
 
-        console.log(response.data);
         isMounted && setUsers(response.data);
       } catch (error) {
         console.log(error);
+        navigate('/login', { state: { from: location }, replace: true });
       }
     }
-
-    getUsers();
+    
+    if (effectRun.current) {
+      getUsers();
+    }
 
     return () => {
       isMounted = false;
       controller.abort();
+      effectRun.current = true;
     };
   }, []);
 

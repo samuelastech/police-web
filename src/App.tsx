@@ -8,6 +8,8 @@ import Layout from './components/Layout';
 import Missing from './components/Missing';
 import AdminDashboard from './pages/AdminDashboard';
 import Unauthorized from './components/Unauthorized';
+import Home from './components/Home';
+import PersistLogin from './components/PersistLogin';
 
 enum Roles {
   OPERATOR = 'operator',
@@ -22,15 +24,22 @@ export default function App() {
         {/* Public routes */}
         <Route path='login' element={<Login />} />
         <Route path='unauthorized' element={<Unauthorized />} />
+        
 
         {/* Private routes */}
-        <Route element={<RequireAuth allowedRoles={[Roles.OPERATOR]} />}>
-          <Route path='dashboard' element={<Dashboard />} />
-          <Route path='app' element={<OperationsMap />} />
-        </Route>
+        <Route element={<PersistLogin />}>
+          <Route element={<RequireAuth allowedRoles={[Roles.OPERATOR]} />}>
+            <Route path='dashboard' element={<Dashboard />} />
+            <Route path='app' element={<OperationsMap />} />
+          </Route>
+          
+          <Route element={<RequireAuth allowedRoles={[Roles.MANAGER, Roles.MANAGER]} />}>
+            <Route path="/" element={<Home />} />
+          </Route>
 
-        <Route element={<RequireAuth allowedRoles={[Roles.MANAGER]} />}>
-          <Route path='admin' element={<AdminDashboard />} />
+          <Route element={<RequireAuth allowedRoles={[Roles.MANAGER]} />}>
+            <Route path='admin' element={<AdminDashboard />} />
+          </Route>
         </Route>
 
         {/* Catch all */}

@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useState } from 'react';
 
-interface AuthProps {
+export interface AuthProps {
   email: string;
   pass: string;
   accessToken: string;
@@ -9,7 +9,9 @@ interface AuthProps {
 
 const AuthContext = createContext({
   auth: {} as Partial<AuthProps>,
-  setAuth: (auth: AuthProps) => {}
+  setAuth: (auth: any) => {},
+  persist: false,
+  setPersist: (persist: any) => {},
 });
 
 interface Props {
@@ -18,9 +20,11 @@ interface Props {
 
 export function AuthProvider({ children }: Props) {
   const [auth, setAuth] = useState({});
+  const storedValue = localStorage.getItem('persist');
+  const [persist, setPersist] = useState<boolean>(storedValue ? JSON.parse(storedValue) : false);
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
+    <AuthContext.Provider value={{ auth, setAuth, persist, setPersist }}>
       {children}
     </AuthContext.Provider>
   );

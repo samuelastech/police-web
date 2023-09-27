@@ -5,10 +5,10 @@ import axios from '../api/axios';
 const SIGN_IN_URL = '/auth/signin';
 
 export default function Login() {
-  const { setAuth } = useAuth();
+  const { setAuth, setPersist, persist } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || '/login';
+  const from = location.state?.from?.pathname || '/';
 
   const emailRef = useRef<HTMLInputElement>(null);
   const errorRef = useRef<HTMLDivElement>(null);
@@ -39,8 +39,8 @@ export default function Login() {
         withCredentials: true,
       });
 
-      const { token, type } = response?.data;
-      setAuth({ email, pass, accessToken: token, type });
+      const { accessToken, type } = response?.data;
+      setAuth({ email, pass, accessToken, type });
 
       setEmail('');
       setPass('');
@@ -59,7 +59,15 @@ export default function Login() {
 
       errorRef.current?.focus();
     }
-  }
+  };
+
+  const togglePersist = () => {
+    setPersist((previous: any) => !previous);
+  };
+
+  useEffect(() => {
+    localStorage.setItem('persist', `${persist}`);
+  }, [persist]);
   
   return (
     <section>
@@ -90,6 +98,14 @@ export default function Login() {
           required />
 
         <button>Sing in</button>
+        <div>
+          <input
+            type='checkbox'
+            id='persist'
+            onChange={togglePersist}
+            checked={persist} />
+          <label htmlFor='persist'>Manter-se conectado neste dispositivo:</label>
+        </div>
       </form>
     </section>
   );
