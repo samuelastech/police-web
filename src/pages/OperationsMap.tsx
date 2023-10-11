@@ -1,30 +1,29 @@
 import '../styles/pages/operations-map.css'
-import { useMemo, useEffect, useState, Fragment } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { LatLngExpression } from 'leaflet';
-
-import io from 'socket.io-client';
 import PositionMarker from '../components/PositionMarker';
 import SupportingPanel from '../components/SupportingPanel';
 
 import { AgentsPosition } from '../components/agents-position.interface';
+import { useNavigate } from 'react-router-dom';
+import useWork from '../hooks/useWork';
 
 export default function OperationsMap() {
-    const socket = useMemo(() => {
-        return io(process.env.REACT_APP_SOCKET_SERVER as string, {
-            query: { clientInitialRoom: 'operations' },
-        }).connect()
-    }, []);
+    const { socket } = useWork();
     const [agentsPosition, setAgentsPosition] = useState<AgentsPosition>({});
     const [centerCamera, setCenterCamera] = useState([0, 0]);
     const [isSupporting, setIsSupporting] = useState<boolean>(false);
     const [chaseId, setChaseId] = useState<string>('');
+    const navigate = useNavigate();
     
     useEffect(() => {
         handleGetCurrentLocation();
     }, []);
     
     useEffect(() => {
+        socket.emit('startWork');
+
         socket.on('positionToOperators', (position) => {
             setAgentsPosition(agents => ({ ...agents, ...position}));
         });
@@ -63,6 +62,12 @@ export default function OperationsMap() {
         setCenterCamera(position);
     }
 
+    function handleFinishWork() {
+        socket.emit('finishWork');
+        socket.disconnect();
+        navigate('/dashboard')
+    }
+
     function handleGetCurrentLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((location) => {
@@ -97,6 +102,7 @@ export default function OperationsMap() {
                             })
                         ) : <p>Nenhum policia na patrulha</p>
                     }
+                    <button onClick={handleFinishWork}>Finish Work</button>
                 </aside>
             )}
             {

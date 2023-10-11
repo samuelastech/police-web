@@ -10,6 +10,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import Unauthorized from './components/Unauthorized';
 import Home from './components/Home';
 import PersistLogin from './components/PersistLogin';
+import { WorkLayout } from './context/WorkProvider';
 
 enum Roles {
   OPERATOR = 'operator',
@@ -28,10 +29,12 @@ export default function App() {
 
         {/* Private routes */}
         <Route element={<PersistLogin />}>
-          <Route element={<RequireAuth allowedRoles={[Roles.OPERATOR]} />}>
-            <Route path='dashboard' element={<Dashboard />} />
-            <Route path='app' element={<OperationsMap />} />
-          </Route>
+          <Route element={<WorkLayout />}>
+            <Route element={<RequireAuth allowedRoles={[Roles.OPERATOR]} />}>
+              <Route path='dashboard' element={<Dashboard />} />
+              <Route path='app' element={<OperationsMap />} />
+            </Route>
+          </Route> 
           
           <Route element={<RequireAuth allowedRoles={[Roles.MANAGER, Roles.MANAGER]} />}>
             <Route path="/" element={<Home />} />
