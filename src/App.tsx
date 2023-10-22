@@ -1,22 +1,14 @@
 import './styles/global.css';
 import RequireAuth from './components/RequireAuth';
 import { Routes, Route } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
-import Login from './pages/Login';
-import OperationsMap from './pages/OperationsMap';
+import { Login, Dashboard, OperationsMap } from './pages/';
 import Layout from './components/Layout';
 import Missing from './components/Missing';
 import AdminDashboard from './pages/AdminDashboard';
-import Unauthorized from './components/Unauthorized';
-import Home from './components/Home';
 import PersistLogin from './components/PersistLogin';
 import { WorkLayout } from './context/WorkProvider';
-
-enum Roles {
-  OPERATOR = 'operator',
-  POLICE = 'police',
-  MANAGER = 'manager'
-}
+import { Roles } from './types/users.type';
+import { OperationsProvider } from './context/OperationsContext';
 
 export default function App() {
   return (
@@ -24,21 +16,17 @@ export default function App() {
       <Route path='/' element={<Layout />}>
         {/* Public routes */}
         <Route path='login' element={<Login />} />
-        <Route path='unauthorized' element={<Unauthorized />} />
         
-
         {/* Private routes */}
         <Route element={<PersistLogin />}>
           <Route element={<WorkLayout />}>
             <Route element={<RequireAuth allowedRoles={[Roles.OPERATOR]} />}>
               <Route path='dashboard' element={<Dashboard />} />
-              <Route path='app' element={<OperationsMap />} />
+              <Route element={<OperationsProvider />}>
+                <Route path='app' element={<OperationsMap />} />
+              </Route>
             </Route>
           </Route> 
-          
-          <Route element={<RequireAuth allowedRoles={[Roles.MANAGER, Roles.MANAGER]} />}>
-            <Route path="/" element={<Home />} />
-          </Route>
 
           <Route element={<RequireAuth allowedRoles={[Roles.MANAGER]} />}>
             <Route path='admin' element={<AdminDashboard />} />

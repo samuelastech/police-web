@@ -1,5 +1,5 @@
-import { useLocation, Navigate, Outlet } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from '../hooks/';
 
 interface Props {
   allowedRoles: string[];
@@ -7,19 +7,12 @@ interface Props {
 
 export default function RequireAuth({ allowedRoles }: Props) {
   const { auth } = useAuth();
-  const location = useLocation();
 
   return (
     auth?.type && allowedRoles?.includes(auth?.type)
       ? <Outlet />
-      : auth.email
-        ? <Navigate
-            to='/unauthorized'
-            state={{ from: location }}
-            replace />
-        : <Navigate
-            to='/login'
-            state={{ from: location }}
+      : <Navigate
+            to='/'
             replace />
   );
 }

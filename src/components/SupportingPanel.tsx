@@ -1,28 +1,29 @@
 import { useEffect } from 'react';
-import { Socket } from 'socket.io-client'
+import { useWork } from '../hooks';
 
-interface Props {
-  connection: Socket;
+interface SupportingPanelProps {
   setAgents: (chasingId: string, position: number[]) => void;
   toggleSupporting: () => void;
 }
 
-export default function SupportingPanel({ connection, setAgents, toggleSupporting }: Props) {
+export const SupportingPanel = ({ setAgents, toggleSupporting }: SupportingPanelProps) => {
+  const { socket } = useWork();
+
   useEffect(() => {
-    connection.on('positionToSupporters', (chasingId, position) => {
+    socket.on('positionToSupporters', (chasingId, position) => {
       setAgents(chasingId, position);
     });
 
-    connection.on('supportersPosition', (supportPosition) => {
+    socket.on('supportersPosition', (supportPosition) => {
       const agentId = Object.keys(supportPosition)[0];
       setAgents(agentId, supportPosition[agentId]);
     });
 
-    connection.once('finishChaseForSupporters', () => {
-      connection.emit('getIntoRoom', 'operations');
+    socket.once('finishChaseForSupporters', () => {
+      socket.emit('getIntoRoom', 'operations');
       toggleSupporting();
     });
-  }, [connection]);
+  }, [socket]);
 
   return (
     <aside>

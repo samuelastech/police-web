@@ -1,0 +1,23 @@
+.button {
+  all: unset;
+  text-align: center;
+  padding: 15px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button.-blue {
+  background-color: var(--blue-500);
+  color: var(--gray-100);
+}
+
+.button.-orange {
+  background-color: var(--orange-500);
+  color: var(--blue-990);
+}
+
+.button.-blue:hover, .button.-orange:hover {
+  background-image: linear-gradient(rgb(0 0 0/20%) 0 0);
+}
+

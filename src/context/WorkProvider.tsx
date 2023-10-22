@@ -1,5 +1,5 @@
-import { ReactNode, createContext, useMemo } from 'react';
-import useAuth from '../hooks/useAuth';
+import { ReactNode, createContext, useEffect, useMemo } from 'react';
+import { useAuth } from '../hooks/';
 import io, { Socket } from 'socket.io-client';
 import { Outlet } from 'react-router-dom';
 
@@ -16,7 +16,6 @@ interface Props {
 }
 
 export function WorkProvider({ children }: Props) {
-  console.log('Im inside the context')
   const { auth } = useAuth();
   const socket = useMemo(() => {
     return io(process.env.REACT_APP_SOCKET_SERVER as string, {
@@ -28,7 +27,13 @@ export function WorkProvider({ children }: Props) {
             }
         }
     }).connect();
-  }, []);
+  }, [auth.accessToken]);
+
+  useEffect(() => {
+    socket.on('connect_error', (error) => {
+      console.log(error);
+    });
+  }, [socket]);
 
   return (
     <WorkContext.Provider value={{ socket }}>

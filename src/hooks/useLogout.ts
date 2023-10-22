@@ -1,7 +1,7 @@
 import axios from '../api/axios';
-import useAuth from './useAuth';
+import { useAuth } from './useAuth';
 
-export default function useLogout() {
+export const useLogout = () => {
   const { setAuth } = useAuth();
 
   const logout = async () => {

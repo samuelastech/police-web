@@ -1,28 +1,72 @@
 import '../styles/pages/dashboard.css';
-import logo from '../images/logo.svg';
-import { FiArrowRight } from "react-icons/fi";
-import { Link } from 'react-router-dom';
+import { Button } from '../components';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth, useLogout, useWork } from '../hooks/';
+import { useEffect, useState } from 'react';
+import { Card } from '../components/Card';
+import { axiosPrivate } from '../api/axios';
 
-export default function Dashboard() {
+interface UserStats {
+    work: number;
+    occurrences: number;
+  }
+
+export const Dashboard = () => {
+    const { auth } = useAuth();
+    const { socket } = useWork();
+    const [stats, setStats] = useState<UserStats>({ work: 0, occurrences: 0 });
+    const logout = useLogout();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        let isMounted = true;
+        const controller = new AbortController();
+        const getStats = async () => {
+            try {
+                const response = await axiosPrivate.get(`/users/stats/${auth.id}`, {
+                    signal: controller.signal,
+                });
+                isMounted && setStats(response.data);
+            } catch (error: any) {
+                console.log(error);
+            }
+        };
+
+        getStats();
+
+        return () => {
+            isMounted = false;
+        }
+    }, [auth.id]);
+
+    const startWork = () => {
+        socket.emit('agent:startWork');
+    };
+
+    const handleLogout = () => {
+        logout()
+        navigate('/login');
+    }
+
     return (
         <div id='home'>
-            <div className='content-wrapper'>
-                <img src={logo} alt='Estrela' />
-                <main className='title-wrapper'>
-                    <h1 className='title'>Guardiões das Linhas, Defendendo Vidas</h1>
-                    <p className='slogan'>COPOM Sempre Alerta</p>
-                </main>
-
-                <div className='location'>
-                    <strong>Embu das Artes</strong>
-                    <span>São Paulo</span>
+            <div className='header-container'>
+                <h1 className='title'>Dashboard <span className='subtitle'>Operações</span></h1>
+                <div className='logout'>
+                    <Button text='Sair' action={handleLogout} />
                 </div>
-
-                <Link to='/app' className='start'>
-                    Iniciar operações
-                    <FiArrowRight size={26} color="rgba(0, 0, 0, 0.6)" />
-                </Link>
             </div>
+            {
+                stats && Object.keys(stats).length ? (
+                    <section className='cards'>
+                        <Card text='Operações realizadas' data={stats.work} />
+                        <Card text='Acompanhamentos monitorados' data={stats.occurrences} />
+                    </section>
+                ) : null
+            }
+            <Link to='/app' onClick={startWork} className='calltoaction'>
+                <Button text='Iniciar operações' color='orange'/>
+            </Link>
         </div>
     );
 }

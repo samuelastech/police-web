@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@phosphor-icons/react": "^2.0.10",
+    "@phosphor-icons/react": "^2.0.13",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -21,6 +21,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
     "react-leaflet": "^4.2.1",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
     "reactjs-popup": "^2.0.6",
@@ -53,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-modal": "^3.16.2",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",

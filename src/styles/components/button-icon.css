@@ -1,0 +1,35 @@
+.button-icon {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  gap: 10px;
+  height: 50px;
+  color: var(--gray-100);
+}
+
+.button-icon.-red {
+  background-color: var(--red-500);
+}
+
+.button-icon.-blue:hover, .button-icon.-red:hover {
+  background-image: linear-gradient(rgb(0 0 0/20%) 0 0);
+}
+
+.button-icon.-blue {
+  background-color: var(--blue-500);
+}
+
+.button-icon.-loading {
+  clip-path: inset(0 3ch 0 0);
+  animation: loading 1s steps(4) infinite;
+}
+
+@keyframes lloading {
+  to {
+    clip-path: inset(0 -1ch 0 0)
+  }
+}

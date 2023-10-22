@@ -5,9 +5,33 @@
     position: relative;
 }
 
-aside{
-    background-color: #FFF;
-    color: black;
-    width: 40%;
-    padding: 50px;
+.modal-container {
+    z-index: 99999;
+    position: absolute;
+    background-color: rgb(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-container.-hidden {
+    display: none;
+}
+
+.modal-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    max-width: 256px;
+    width: 100%;
+}
+
+.modal-box > .text {
+    text-align: center;
+    margin-bottom: 15px;
+    user-select: none;
 }

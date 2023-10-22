@@ -1,0 +1,19 @@
+.callout-container {
+  display: flex;
+  padding: 20px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border-radius: 4px;
+  background-color: var(--blue-995);
+  width: 100%;
+}
+
+.callout-container > .icon {
+  flex: 1;
+}
+
+.callout-container > .text {
+  flex: 6;
+  width: 100%;
+  flex-wrap: wrap;
+}

@@ -1,7 +1,7 @@
 import axios from '../api/axios';
-import useAuth from './useAuth';
+import { useAuth } from './useAuth';
 
-export default function useRefresh() {
+export const useRefresh = () => {
   const { setAuth } = useAuth();
 
   async function refresh() {

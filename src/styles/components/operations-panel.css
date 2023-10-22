@@ -1,0 +1,118 @@
+.operations-panel {
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
+  position: absolute;
+  padding: 20px;
+  left: 75px;
+  top: 25px;
+  border-radius: 4px;
+  height: 350px;
+  max-width: 350px;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 1px 2px var(--gray-400);
+  gap: 15px;
+}
+
+.operations-panel > .actions {
+  border-top: 1px solid var(--gray-100);
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.operations-panel > .address {
+  color: var(--gray-400);
+}
+
+.operations-panel > .address > .strong {
+  color: var(--blue-990);
+  font-weight: bold;
+}
+
+.operations-panel > .title {
+  user-select: none;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.operations-panel > .table {
+  color: var(--gray-400);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--gray-100);
+  border-radius: 4px;
+}
+
+.table-row {
+  user-select: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  position: relative;
+  gap: 5px;
+}
+
+.table-row > .name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+.table-row, .nopolices {
+  padding: 10px;
+}
+
+.table-row:hover {
+  background-image: linear-gradient(rgb(0 0 0/5%) 0 0);
+}
+
+.table-row::after {
+  content: '';
+  height: 1px;
+  width: 50%;
+  position: absolute;
+  bottom: -1px;
+  background: var(--gray-100);
+  left: 25%;
+}
+
+.table-row > .status {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+}
+
+.table-row > .status > .label {
+  font-size: 0.75rem;
+}
+
+.table-row > .status > .signal {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.table-row > .status.-active > .signal {
+  background-color: var(--green-300);
+}
+
+.table-row > .status.-active > .label {
+  color: var(--green-300);
+}
+
+.table-row > .status.-chasing > .signal {
+  background-color: var(--red-500);
+}
+
+.table-row > .status.-chasing > .label {
+  color: var(--red-500);
+}

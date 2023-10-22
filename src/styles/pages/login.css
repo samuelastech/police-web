@@ -1,0 +1,28 @@
+.login-page {
+  background-color: var(--blue-990);
+  flex-direction: column;
+  color: var(--gray-100);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  width: 100%;
+  gap: 15px;
+}
+
+.login-box > .title {
+  font-size: 3rem;
+}
+
+.checkbox-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}

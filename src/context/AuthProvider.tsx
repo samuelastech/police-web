@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useState } from 'react';
 
 export interface AuthProps {
+  id: string;
   email: string;
   pass: string;
   accessToken: string;

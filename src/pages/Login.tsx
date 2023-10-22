@@ -1,14 +1,16 @@
+import '../styles/pages/login.css';
 import { FormEvent, useEffect, useRef, useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import { Roles } from '../types/users.type';
+import { Envelope, LockSimple, WarningCircle } from "@phosphor-icons/react";
+import { Input, Button, Callout } from '../components';
+import { useAuth } from '../hooks/';
 import axios from '../api/axios';
 const SIGN_IN_URL = '/auth/signin';
 
-export default function Login() {
+export const Login = () => {
   const { setAuth, setPersist, persist } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
 
   const emailRef = useRef<HTMLInputElement>(null);
   const errorRef = useRef<HTMLDivElement>(null);
@@ -39,22 +41,22 @@ export default function Login() {
         withCredentials: true,
       });
 
-      const { accessToken, type } = response?.data;
-      setAuth({ email, pass, accessToken, type });
+      const { accessToken, type, id } = response?.data;
+      setAuth({ email, pass, accessToken, type, id });
 
       setEmail('');
       setPass('');
-      navigate(from, { replace: true });
+      navigate(type === Roles.OPERATOR ? '/dashboard' : '/', { replace: true });
     } catch (error: any) {
       console.log(error)
       if (!error?.response) {
-        setErrorMessage('No server response');
+        setErrorMessage('Sem resposta do servidor');
       } else if(error.response?.status === 400) {
-        setErrorMessage('Missing email or password');
+        setErrorMessage('Esqueceu e-mail e/ou senha');
       } else if(error.response?.status === 401) {
-        setErrorMessage('Unauthorized');
+        setErrorMessage('Acesso não autorizado');
       } else {
-        setErrorMessage('Login failed for some reason');
+        setErrorMessage('O login falhou por algum motivo');
       }
 
       errorRef.current?.focus();
@@ -70,41 +72,40 @@ export default function Login() {
   }, [persist]);
   
   return (
-    <section>
-      <p
-        ref={errorRef}
-        className={errorMessage ? 'errmsg' : 'offscreen'}
-        aria-live='assertive'>
-          {errorMessage}
-      </p>
-      <h1>Sign in</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor='email'>Email</label>
-        <input
+    <section className='login-page'>
+      <form className='login-box' onSubmit={handleSubmit}>
+        {errorMessage ? <Callout  ref={errorRef} text={errorMessage} icon={WarningCircle} /> : null}  
+        <h1 className='title'>Entrar</h1>
+        <Input
+          icon={Envelope}
           type='email'
-          id='email'
-          ref={emailRef}
-          autoComplete='off'
-          onChange={(event) => setEmail(event.target.value)}
+          label='E-mail'
+          setProperty={setEmail}
           value={email}
-          required />
+          ref={emailRef}
+          required
+          autoComplete='off'
+          placeholder='Digite seu e-mail' />
 
-        <label htmlFor='pass'>Password</label>
-        <input
+        <Input
+          icon={LockSimple}
           type='password'
-          id='pass'
-          onChange={(event) => setPass(event.target.value)}
+          label='Senha'
+          setProperty={setPass}
           value={pass}
-          required />
+          required
+          autoComplete='off'
+          placeholder='Digite sua senha' />
 
-        <button>Sing in</button>
-        <div>
+        <Button text='Entrar' />
+
+        <div className='checkbox-input'>
+          <label htmlFor='persist'>Manter-se conectado neste dispositivo: </label>
           <input
             type='checkbox'
             id='persist'
             onChange={togglePersist}
             checked={persist} />
-          <label htmlFor='persist'>Manter-se conectado neste dispositivo:</label>
         </div>
       </form>
     </section>
