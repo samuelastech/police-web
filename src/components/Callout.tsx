@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import '../styles/components/callout.css';
 import { Icon } from '@phosphor-icons/react';
 import { forwardRef, useImperativeHandle, useRef } from 'react';

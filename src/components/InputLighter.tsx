@@ -1,15 +1,15 @@
-import '../styles/components/input.css';
+import '../styles/components/input-lighter.css';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import { Icon } from '@phosphor-icons/react';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputLighterProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  setProperty: (property: string) => void;
   icon: Icon;
+  setProperty: (property: string) => void;
 }
 
-export const Input = forwardRef(({ label, icon, setProperty, ...props }: InputProps, ref) => {
-  const [focused, setFocused] = useState<boolean>(false)
+export const InputLighter = forwardRef(({ label, icon, setProperty, ...props }: InputLighterProps, ref) => {
+  const [focused, setFocused] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const Icon = icon;
 
@@ -19,12 +19,12 @@ export const Input = forwardRef(({ label, icon, setProperty, ...props }: InputPr
       setFocused(true);
     },
   }));
-
+  
   return (
-    <div className='input-wrapper'>
+    <div className='input-container'>
       <label className='label' htmlFor={label}>{label}</label>
-      <div className={`input-box ${focused ? '-focus' : ''}`}>
-        <Icon color={focused ? '#E6ECF3' : '#546575' } className='icon' />
+      <div className={`icon-input ${focused ? '-focus' : ''}`}>
+        <Icon color={focused ? '#1293EF' : '#546575' } className='icon' />
         <input
           className='input'
           id={label.toLocaleLowerCase()}
@@ -36,4 +36,4 @@ export const Input = forwardRef(({ label, icon, setProperty, ...props }: InputPr
       </div>
     </div>
   );
-})
+});

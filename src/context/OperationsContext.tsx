@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import 'leaflet/dist/leaflet.css'
 import { Fragment, createContext, useEffect, useState } from 'react';
 import { CircleMarker, MapContainer, Polyline, TileLayer } from 'react-leaflet';
@@ -54,6 +55,13 @@ export const OperationsProvider = () => {
 
 		socket.on('police:cleanUp', (clientId: any) => {
 			setAgentsPosition((agents: any) => {
+				const { [clientId]: coords, ...rest } = agents;
+				return rest;
+			});
+		});
+
+    socket.on('support:cleanUp', (clientId: any) => {
+			setSupportPosition((agents: any) => {
 				const { [clientId]: coords, ...rest } = agents;
 				return rest;
 			});

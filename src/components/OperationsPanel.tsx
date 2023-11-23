@@ -28,10 +28,10 @@ const DefaultPanel = () => {
   const watchingPosition = watching ? agentsPosition[watching] : null;
 
   useMapEvents({
-    click() {
+    click: () => {
       setWatching('');
     },
-    drag() {
+    drag: () => {
       setWatching('');
     },
   });
@@ -93,13 +93,13 @@ const SupportingPanel = () => {
   const position = chaserPosition[Object.keys(chaserPosition)[0]];
   const map = useMap();
   useMapEvents({
-    click() {
+    click: () => {
       setFixCam(false);
     },
-    drag() {
+    drag: () => {
       setFixCam(false);
     },
-    dblclick() {
+    dblclick: () => {
       setFixCam(false);
     }
   });
@@ -128,7 +128,7 @@ const SupportingPanel = () => {
       const key = Object.keys(position)[0];
 
       setChaserPosition((agents: any) => {
-        return { ...position, ...agents };
+        return { ...agents, ...position };
       });
 
       setChaserRoute((coords: any) => {

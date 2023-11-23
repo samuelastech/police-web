@@ -1,0 +1,77 @@
+#admin-page {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+.left-container {
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--gray-100);
+  padding: 30px;
+  flex: 2;
+}
+
+.section-container {
+  padding: 30px;
+  flex: 5;
+}
+
+.right-container {
+  padding: 30px;
+  flex: 1;
+  border-left: 1px solid var(--gray-300);
+}
+
+.left-container > .menubutton {
+  width: 100%;
+  text-align: left;
+  padding: 15px;
+  border-bottom: 1px solid var(--gray-300);
+  cursor: pointer;
+  color: var(--gray-500);
+}
+
+.left-container > .title {
+  padding-left: 15px;
+  padding-bottom: 10px;
+  font-size: 1.5rem;
+  color: var(--gray-600);
+}
+
+.section-container > .title {
+  user-select: none;
+  font-size: 2rem;
+  padding-bottom: 25px;
+}
+
+.section-container > .title > .subtitle {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.left-container > .menubutton:hover {
+  background-image: linear-gradient(rgb(0 0 0/20%) 0 0);
+  border-radius: 4px;
+}
+
+.infos-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 5px;
+  gap: 5px;
+}
+
+.infos-header > .email {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--gray-500);
+}
+
+.infos-header > .role {
+  font-size: 0.85rem;
+  color: var(--gray-400);
+}

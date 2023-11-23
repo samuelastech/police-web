@@ -44,7 +44,8 @@ export const Dashboard = () => {
     };
 
     const handleLogout = () => {
-        logout()
+        logout();
+        socket.disconnect();
         navigate('/login');
     }
 

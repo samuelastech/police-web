@@ -1,24 +1,26 @@
-.input-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+.input-container {
+  width: 100%;
 }
 
-.input-box {
+.input-container > .label {
+  color: var(--gray-600);
+}
+
+.icon-input {
   display: flex;
   align-items: center;
-  background-color: var(--blue-900);
+  background-color: var(--gray-100);
   border-radius: 4px;
   padding: 15px 20px;
   gap: 15px;
-  border: 2px solid var(--blue-900);
+  border: 2px solid var(--gray-100);
 }
 
-.input-box.-focus {
+.icon-input.-focus {
   border: 2px solid var(--blue-500);
 }
 
-.input-box > .input {
+.icon-input > .input {
   all: unset;
   width: 100%;
   background-color: transparent !important;
@@ -27,12 +29,12 @@
 .icon {
 }
 
-.input-box > .input:-webkit-autofill {
+.icon-input > .input:-webkit-autofill {
   transition: background-color 0s 600000s, color 0s 600000s;
   color: var(--gray-400);
 }
 
-.input-box > .input::placeholder {
+.icon-input > .input::placeholder {
   color: var(--gray-400);
   opacity: 1;
 }

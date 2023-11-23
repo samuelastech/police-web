@@ -46,7 +46,7 @@ export const Login = () => {
 
       setEmail('');
       setPass('');
-      navigate(type === Roles.OPERATOR ? '/dashboard' : '/', { replace: true });
+      navigate(type === Roles.OPERATOR ? '/dashboard' : '/admin', { replace: true });
     } catch (error: any) {
       console.log(error)
       if (!error?.response) {

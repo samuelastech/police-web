@@ -1,0 +1,50 @@
+.table-agents {
+  display: flex;
+  flex-direction: column;
+  color: var(--gray-500);
+  border-top: 1px solid var(--gray-500);
+  border-bottom: 1px solid var(--gray-500);
+  user-select: none;
+  margin-bottom: 30px;
+}
+
+.row-header, .row-body {
+  display: flex;
+  padding: 5px 0;
+}
+
+.row-header {
+  border-bottom: 1px solid var(--gray-500);
+}
+
+.row-header > .cell,
+.row-body > .cell {
+  flex: 2;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  padding: 0 10px;
+}
+
+.row-header > .cell.-small,
+.row-body > .cell.-small {
+  flex: 1;
+}
+
+.row-body {
+  font-size: 0.85rem;
+}
+
+.row-body:hover {
+  background-color: var(--gray-100);
+  cursor: pointer;
+}
+
+.delete-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--red-500);
+  width: 25px;
+  border-radius: 50%;
+  height: 25px;
+}

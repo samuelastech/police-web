@@ -1,0 +1,34 @@
+.form-squads {
+  padding: 20px;
+  border-color: var(--gray-100);
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.form-squads > .title {
+  font-size: 1.25rem;
+  color: var(--gray-600);
+}
+
+.select-container {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.selected-users {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.selected-users > .title {
+  color: var(--gray-600);
+  margin-bottom: 5px;
+}
+
+.users-container {
+  border-radius: 4px;
+  min-height: 100px;
+  background-color: var(--gray-100);
+  padding: 5px 15px;
+  overflow-y: scroll;
+}

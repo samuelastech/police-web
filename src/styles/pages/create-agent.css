@@ -1,0 +1,42 @@
+.form-agents {
+  padding: 20px;
+  border-color: var(--gray-100);
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.form-agents > .title {
+  font-size: 1.25rem;
+  color: var(--gray-600);
+}
+
+.input-fields {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.select-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.select-container > .label {
+  color: var(--gray-600);
+}
+
+.select-container > .select {
+  height: 100%;
+  border: 2px solid var(--gray-100);
+  border-radius: 4px;
+  padding: 0 10px;
+  background-color: var(--gray-100);
+}
+
+.button-container {
+  display: flex;
+  width: 50%;
+}

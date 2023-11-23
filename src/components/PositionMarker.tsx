@@ -19,7 +19,7 @@ const marker = (MarkerIcon: Icon, position: LatLngExpression) => {
   return (
     <Marker icon={MarkerIcon} position={position}>
       <Popup>
-        A pretty CSS3 popup. <br /> Easily customizable.
+        <a href='http://192.168.43.156' target='_blank' rel="noreferrer">Abrir câmera</a>
       </Popup>
     </Marker>
   );

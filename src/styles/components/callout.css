@@ -13,6 +13,7 @@
 }
 
 .callout-container > .text {
+  color: var(--gray-100);
   flex: 6;
   width: 100%;
   flex-wrap: wrap;

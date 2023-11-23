@@ -1,10 +1,9 @@
 import './styles/global.css';
 import RequireAuth from './components/RequireAuth';
 import { Routes, Route } from 'react-router-dom';
-import { Login, Dashboard, OperationsMap } from './pages/';
+import { Login, Dashboard, OperationsMap, AdminDashboard } from './pages/';
 import Layout from './components/Layout';
 import Missing from './components/Missing';
-import AdminDashboard from './pages/AdminDashboard';
 import PersistLogin from './components/PersistLogin';
 import { WorkLayout } from './context/WorkProvider';
 import { Roles } from './types/users.type';
